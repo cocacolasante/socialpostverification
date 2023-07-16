@@ -30,6 +30,11 @@ describe("Verification contract", () =>{
     it("checks the only admin fail case modifier", async () =>{
         await expect(VerificationContract.connect(user2).setFee(10)).to.be.reverted
     })
+    it("checks the changing admin function", async () =>{
+        await VerificationContract.connect(deployer).setAdmin(user2.address)
+        expect(await VerificationContract.getAdmin()).to.equal(user2.address)
+
+    })
     describe("Make Post Function", async () =>{
         beforeEach(async () =>{
             await VerificationContract.connect(user1).makePost(SAMPLEIPFS, {value: "1"})
@@ -46,6 +51,12 @@ describe("Verification contract", () =>{
             const postsArray = await VerificationContract.getAllUsersPost(user1.address)
             
             expect(postsArray.length).to.equal(2)
+        })
+        it("checks the admin received the fee", async () =>{
+            const initialBalance = await ethers.provider.getBalance(deployer.address)
+            await VerificationContract.connect(user1).makePost(SAMPLEIPFS, {value: "1"})
+            expect(await ethers.provider.getBalance(deployer.address)).to.equal(BigInt(initialBalance) + BigInt(1))
+
         })
     })
 })

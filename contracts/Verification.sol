@@ -39,6 +39,8 @@ contract Verification{
 
         usersPosts[msg.sender].push(newPost);
 
+        payable(admin).transfer(msg.value);
+
         return newPost;
     }
 
@@ -66,6 +68,12 @@ contract Verification{
 
     // get admin
     function getAdmin() public view returns(address){
+        return admin;
+    }
+    // set new admin
+
+    function setAdmin(address newAdmin) public onlyAdmin returns(address){
+        admin = newAdmin;
         return admin;
     }
 
