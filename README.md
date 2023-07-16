@@ -1,13 +1,17 @@
-# Sample Hardhat Project
+TO DO
+figure out how to make qr codes
+how to embed the ipfs in qr codes
+create front end
+    landing
+    creating posts
+        form component
+        info component
+            price/fee component
+    users posts
+        profile component
+        mapping over array of user posts pulled from ipfs hashs
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+    individual posts
+        posts meta data components
+        user data
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
