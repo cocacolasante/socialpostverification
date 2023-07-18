@@ -1,7 +1,11 @@
-
+import Landing from "../../components/Landing"
+import About from "../../components/About"
 
 export default function Home() {
   return (
-    <h1>Hello there</h1>
+    <div>
+      <Landing />
+      <About />
+    </div>
   )
 }

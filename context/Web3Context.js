@@ -89,3 +89,5 @@ export const Web3Provider = ({children}) =>{
         </Web3Context.Provider>
     )
 }
+
+export const useWeb3Context = () => useContext(Web3Context)

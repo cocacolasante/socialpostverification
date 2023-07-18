@@ -1,5 +1,6 @@
 import { Web3Provider } from '../../context/Web3Context'
 import './globals.css'
+import Navbar from '../../components/Navbar'
 
 
 
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={null}>
         <Web3Provider >
+          <Navbar />
           {children}
         </Web3Provider>
       </body>
