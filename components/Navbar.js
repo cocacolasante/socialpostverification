@@ -1,18 +1,23 @@
-import React from 'react'
+"use client"
+import Link from "next/link"
+import { useContext } from "react"
+import { Web3Context } from "../context/Web3Context"
 
 const Navbar = () => {
-
+  const {connectToWallet, currentAccount} = useContext(Web3Context)
+  
     
   return (
     <nav className='flex pt-2 pl-2'>
         <ul className='flex space-x-3 '>
-            <li>Home</li>
-            <li>Create Post</li>
-            <li>Find users posts</li>
-            <li>Your Posts</li>
+            <Link href="/">Home</Link>
+            <Link href="createpost">Create Post</Link>
+            <Link href="finduserposts">Find users posts</Link>
+            <Link href="yourposts" >Your Posts</Link>
         </ul>
         <div className='pr-6 ml-auto'>
-            <button >Connect</button>
+        {!currentAccount ? <button onClick={connectToWallet} >Connect</button> : <button onClick={null} >{currentAccount.slice(0, 4)}...{currentAccount.slice(-6)}</button> }
+            
         </div>
     </nav>
   )

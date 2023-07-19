@@ -2,7 +2,7 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div>
+    <div className='text-center'>
         <h2>About</h2>
         <p>Deep fakes. leaked footage. news telling us one thing, while social media tells us something different.
             These problems can affect anyone, even Joe Rogan was immitated with this technology to have his voice promote a product.
