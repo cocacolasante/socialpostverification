@@ -1,9 +1,11 @@
 "use client"
-
 import React, { useState, useContext, useEffect } from 'react';
-import { Web3Context } from "../context/Web3Context"
+import QRCode from 'qrcode';
+import { saveAs } from 'file-saver';
 import axios from 'axios'
 const FormData = require('form-data')
+import { Web3Context } from "../context/Web3Context"
+import Image from 'next/image';
 
 
 const CreateForm = () => {
@@ -20,6 +22,8 @@ const CreateForm = () => {
     const [socialsToUpload, setSocialsToUpload] = useState()
     // set the post name
     const [postName, setPostName] = useState()
+    // qr code
+    const [qrCode, setQrCode] = useState()
     
     
     // CREATE UPLOAD FORM
@@ -95,7 +99,7 @@ const CreateForm = () => {
             try{
                await createPost(newRes.data.IpfsHash)
                 
-                
+               createQRCode(newRes.data.IpfsHash)
                 
             }catch(err){
                 console.log(err)
@@ -107,6 +111,22 @@ const CreateForm = () => {
         }
     }
 
+    const createQRCode = async (ipfsLink) =>{
+        const newUrl = `https://ipfs.io/ipfs/${ipfsLink}`
+        
+        const qrSvg = await QRCode.toDataURL(newUrl)
+
+        console.log(qrSvg)
+        setQrCode(qrSvg)
+        
+    }
+
+    const handleDownloadClick = () =>{
+        if(!qrCode) return
+
+        const blob = new Blob([qrCode], { type: 'image/svg+xml' });
+        saveAs(blob, "qrcode.svg")
+    }
 
 
   return (
@@ -123,6 +143,15 @@ const CreateForm = () => {
                 <br/>
                 <button className='border border-red-600' type='submit' >Upload Media</button>
             </form>
+        </div>
+        <div className='text-center'>
+            
+        {qrCode && (<>
+
+            <Image  width={500} height={500} src={qrCode} alt="qr code" />
+            <p>Please right click on QRCode and click Save Image As to download</p>
+        </>
+        )}
         </div>
         
     </div>
