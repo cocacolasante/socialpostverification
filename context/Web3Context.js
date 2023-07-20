@@ -28,7 +28,10 @@ export const Web3Provider = ({children}) =>{
             let tx = await VerificationContract.makePost(ipfshash, options)
             let res = await tx.wait()
 
-            console.log(await res)
+            
+            // add db and push item to db
+
+
             if(res.status ==1){
                 console.log("Success")
                 alert(`https://ipfs.io/ipfs/${ipfshash}`)

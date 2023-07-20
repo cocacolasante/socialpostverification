@@ -137,14 +137,14 @@ const CreateForm = () => {
     </div>
         <div>
             <form onSubmit={uploadToIpfs} >
-                <input onChange={e=>setPostName(e.target.value)} placeholder='name of post' />
+                <input onChange={e=>setPostName(e.target.value)} placeholder='Post name' />
                 <br />
                 <input onChange={e=>setPostToUpload(e.target.files[0])} type='file' name='postfile' ></input>
                 <br/>
                 <button className='border border-red-600' type='submit' >Upload Media</button>
             </form>
         </div>
-        <div className='text-center'>
+        <div className='pl-10 text-center'>
             
         {qrCode && (<>
 
