@@ -78,4 +78,10 @@ contract Verification{
         return admin;
     }
 
+    // get fee
+
+    function getFee() public view returns(uint){
+        return fee;
+    }
+
 }

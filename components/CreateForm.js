@@ -8,7 +8,7 @@ const FormData = require('form-data')
 
 const CreateForm = () => {
 
-    const {currentAccount} = useContext(Web3Context)
+    const {currentAccount, createPost} = useContext(Web3Context)
     
     // use state hook to store the uploaded file
     const [postToUpload, setPostToUpload] = useState(null)
@@ -64,6 +64,7 @@ const CreateForm = () => {
             // get ipfs hash from upload
             const fileHash = res.data.IpfsHash
             
+            // complete the json metadata
             const fullMeta = JSON.stringify({
                 user: currentAccount,
                 postName,
@@ -72,6 +73,7 @@ const CreateForm = () => {
                 
             })
 
+            // config for the axios call
             const config = {
                 method: 'post',
                 url: 'https://api.pinata.cloud/pinning/pinJSONToIPFS',
@@ -82,8 +84,22 @@ const CreateForm = () => {
                 data: fullMeta
                   
             }
+            // response
             const newRes = await axios(config)
-            console.log(newRes.data)
+            console.log(newRes)
+            
+            if(newRes.status !=200) return 
+
+            
+            // smart contract call
+            try{
+               await createPost(newRes.data.IpfsHash)
+                
+                
+                
+            }catch(err){
+                console.log(err)
+            }
             
 
         }catch(err){

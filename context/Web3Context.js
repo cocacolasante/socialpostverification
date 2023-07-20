@@ -5,25 +5,33 @@ import {VERIFICATIONADDRESS, VerificationAbi} from "./constants"
 
 // fetch smart contract
 const fetchVerificationContract = (signerOrProvider) =>{
-    return ethers.Contract(VERIFICATIONADDRESS, VerificationAbi, signerOrProvider)
+    return new ethers.Contract(VERIFICATIONADDRESS, VerificationAbi, signerOrProvider)
 }
 
 export const Web3Context = React.createContext()
 
 export const Web3Provider = ({children}) =>{
     const [currentAccount, setCurrentAccount] = useState()
+    const [currentFee, setCurrentFee] = useState()
 
     const createPost = async (ipfshash) =>{
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
         const VerificationContract = fetchVerificationContract(signer)
 
+        const options = {
+            value: BigInt(1000000000000000000)// 1 wei (fee value)
+        };
+        
+
         try{
-            let tx = await VerificationContract.makePost(ipfshash)
+            let tx = await VerificationContract.makePost(ipfshash, options)
             let res = await tx.wait()
 
+            console.log(await res)
             if(res.status ==1){
                 console.log("Success")
+                alert(`https://ipfs.io/ipfs/${ipfshash}`)
             }else {
                 console.log("Error")
             }
@@ -72,9 +80,21 @@ export const Web3Provider = ({children}) =>{
         }
     }
 
+    const getFee = async () =>{
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        
+        const contract = fetchVerificationContract(provider)
+
+        console.log(contract)
+        const fee = await contract.fee()
+        
+       
+    }
+
 
     useEffect(()=>{
         checkIfWalletIsConnected()
+        // getFee()
     }, [])
 
 
@@ -82,7 +102,8 @@ export const Web3Provider = ({children}) =>{
         <Web3Context.Provider value={({
             connectToWallet,
             currentAccount,
-            createPost
+            createPost,
+            currentFee
 
         })} >
             {children}
