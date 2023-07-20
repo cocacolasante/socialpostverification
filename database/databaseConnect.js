@@ -9,7 +9,7 @@ const connectConfig ={
 }
 
 
-const connection = mysql.createConnection(connectConfig)
+export const connection = mysql.createConnection(connectConfig)
 
 
 export function handleGetPosts(req, res) {
