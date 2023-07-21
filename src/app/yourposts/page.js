@@ -1,8 +1,10 @@
-import React from 'react'
+import YourPosts from "../../../components/YourPosts"
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <YourPosts />
+    </div>
   )
 }
 

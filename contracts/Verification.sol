@@ -9,7 +9,7 @@ contract Verification{
     address private admin;
 
     // cost to mint post
-    uint public fee = 1 wei;
+    uint public fee = 1;
 
     // mapping of post struct to user
     mapping(address=>Post[]) public usersPosts;
@@ -18,6 +18,7 @@ contract Verification{
     struct Post{
         uint postNumber;
         string ipfsHash;
+        string qrCodeSvg;
     }
     
 
@@ -31,12 +32,12 @@ contract Verification{
     }
 
     // complete make post function
-    function makePost(string memory _ipfsHash) public payable returns(Post memory){
+    function makePost(string memory _ipfsHash, string memory _qrcodeSvg) public payable returns(Post memory){
         require(msg.value >= fee, "Verification: Pay Required Fee");
         // grabs the users current post number from the current length of the posts array in the mapping
         uint currentPostCount = usersPosts[msg.sender].length +1;
 
-        Post memory newPost = Post(currentPostCount, _ipfsHash);
+        Post memory newPost = Post(currentPostCount, _ipfsHash, _qrcodeSvg);
 
         usersPosts[msg.sender].push(newPost);
 

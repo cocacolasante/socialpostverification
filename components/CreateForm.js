@@ -97,9 +97,10 @@ const CreateForm = () => {
             
             // smart contract call
             try{
-               await createPost(newRes.data.IpfsHash)
+                // adding the qr code directly in the smart contract for storage and retreival 
+                const _qrCodeSvg = createQRCode(newRes.data.IpfsHash)
+                await createPost(newRes.data.IpfsHash, _qrCodeSvg)
                 
-               createQRCode(newRes.data.IpfsHash)
                 
             }catch(err){
                 console.log(err)
@@ -118,6 +119,7 @@ const CreateForm = () => {
 
         console.log(qrSvg)
         setQrCode(qrSvg)
+        return qrSvg
         
     }
 
