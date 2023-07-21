@@ -15,7 +15,7 @@ export const Web3Provider = ({children}) =>{
     const [currentAccount, setCurrentAccount] = useState()
     const [currentFee, setCurrentFee] = useState(1)
 
-    const createPost = async (ipfshash) =>{
+    const createPost = async (ipfshash, qrsvg) =>{
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
         const VerificationContract = fetchVerificationContract(signer)
@@ -26,7 +26,7 @@ export const Web3Provider = ({children}) =>{
         
         
         try{
-            let tx = await VerificationContract.makePost(ipfshash, {value: currentFee})
+            let tx = await VerificationContract.makePost(ipfshash, qrsvg, {value: currentFee})
             let res = await tx.wait()
 
             
