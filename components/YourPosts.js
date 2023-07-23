@@ -4,34 +4,22 @@ import { Web3Context } from "../context/Web3Context"
 import { ethers } from "ethers";
 import { VERIFICATIONADDRESS } from '../context/constants';
 import verificationAbi from "../artifacts/contracts/Verification.sol/Verification.json"
+import Image from 'next/image';
 
 
-
-const fetchVerificationContract = (signerOrProvider) =>{
-    return new ethers.Contract(VERIFICATIONADDRESS, verificationAbi.abi, signerOrProvider)
-}
 const YourPosts = () => {
-    const {currentAccount, getSpecificPost} = useContext(Web3Context)
-    const [currentPost, setCurrentPost] = useState()
+    const {currentAccount, getSpecificPost, getAllUsersPost} = useContext(Web3Context)
+    const [currentPosts, setCurrentPosts] = useState()
+     
 
 
-    const fetchPost = async (postNum) =>{
-        if(!currentAccount) return console.log("not connected")
+    const fetchPost = async () =>{
         try{
-            const provider = new ethers.providers.Web3Provider(window.ethereum)
-            
-            const verFicationContrct = fetchVerificationContract(provider)
-            
-            console.log(verFicationContrct)
-            console.log(currentAccount)
-            const data = await verFicationContrct.getSpecificPost(currentAccount, postNum)
+            const data = await getAllUsersPost(currentAccount)
             console.log(data)
 
-           
+            setCurrentPosts(data)
 
-
-            
-            // setCurrentPost(data)
 
         }catch(err){
             console.log(err)
@@ -40,13 +28,24 @@ const YourPosts = () => {
 
     useEffect(()=>{
         
-        fetchPost(1)
+        fetchPost()
     },[currentAccount])
 
   return (
     <div>
         <h2>Post 1</h2>
-        {currentPost && console.log(currentPost)}
+        {currentPosts && console.log(currentPosts)}
+        {/* {currentPost && <Image width={500} height={500} alt='svg' src={currentPost} />} */}
+        {currentPosts && currentPosts.map((post, i) =>{
+            return (
+                <div key={i}>
+                    {/* MAKE API CALL TO IPFS TO GET JSON DATA FOR POST IMAGE AND NAME */}
+                    <p>Post Num: {post.postNumber.toString()} </p>
+                    <Image width={100} height={100} alt="svg" src={post.qrCodeSvg} />
+                    <p><a href={`https://ipfs.io/ipfs/${post.ipfsHash}`}>IPFS Link</a></p>
+                </div>
+            )
+        })}
     </div>
   )
 }

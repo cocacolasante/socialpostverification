@@ -63,6 +63,24 @@ export const Web3Provider = ({children}) =>{
         }
     }
 
+    const getAllUsersPost = async (address) =>{
+        
+        try{
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+            const verFicationContrct = fetchVerificationContract(provider)
+            console.log(verFicationContrct)
+            const data = await verFicationContrct.getAllUsersPost(address)
+
+            return data
+
+
+
+        }catch(err){
+            console.log(err)
+        }
+    }
+
 
     const checkIfWalletIsConnected = async () =>{
         try{
@@ -127,7 +145,8 @@ export const Web3Provider = ({children}) =>{
             currentAccount,
             createPost,
             currentFee,
-            getSpecificPost
+            getSpecificPost,
+            getAllUsersPost
 
 
         })} >
