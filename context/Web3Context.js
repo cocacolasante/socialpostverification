@@ -70,6 +70,7 @@ export const Web3Provider = ({children}) =>{
 
             const verFicationContrct = fetchVerificationContract(provider)
             console.log(verFicationContrct)
+            
             const data = await verFicationContrct.getAllUsersPost(address)
 
             return data

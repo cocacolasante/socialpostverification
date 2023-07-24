@@ -1,8 +1,13 @@
 import React from 'react'
+import DisplayUsersPosts from '../../../../components/DisplayUsersPosts'
 
-const page = () => {
+
+const page = ({params}) => {
+  const address = params.address
   return (
-    <div>page</div>
+    <div>
+      <DisplayUsersPosts address={address} />
+    </div>
   )
 }
 
