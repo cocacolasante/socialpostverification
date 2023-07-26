@@ -32,9 +32,9 @@ const YourPosts = ({maxPosts }) => {
     },[currentAccount])
 
   return (
-    <>
-        <h2>Posts</h2>
-        <div className='flex'>
+    <div className='text-center'>
+        <h2 className="mb-4 text-3xl font-bold">Posts</h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {currentPosts && console.log(currentPosts)}
 
             {currentPosts && currentPosts.map((post, i) =>{
@@ -44,7 +44,7 @@ const YourPosts = ({maxPosts }) => {
             })}
         </div>
         
-    </>
+    </div>
   )
 }
 

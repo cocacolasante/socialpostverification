@@ -8,17 +8,17 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between p-4 bg-blue-500">
-      <ul className="flex space-x-3 text-white">
-        <li>
-          <Link href="/">Home</Link>
+      <ul className="flex space-x-3 text-white ">
+        <li className="hover:shadow-xl ">
+          <Link  href="/">Home</Link>
         </li>
-        <li>
+        <li className="hover:shadow-xl ">
           <Link href="/createpost">Create Post</Link>
         </li>
-        <li>
+        <li className="hover:shadow-xl ">
           <Link href="/findposts">Find users posts</Link>
         </li>
-        <li>
+        <li className="hover:shadow-xl ">
           <Link href="/yourposts">Your Posts</Link>
         </li>
       </ul>

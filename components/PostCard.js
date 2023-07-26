@@ -31,16 +31,13 @@ const PostCard = ({postNumber, qrCodeSvg, ipfsHash}) => {
   },[])
 
   return (
-    <div className="space-x-2">
-    
-        {/* MAKE API CALL TO IPFS TO GET JSON DATA FOR POST IMAGE AND NAME */}
-        <p>Post Num: {postNumber.toString()} </p>
-        <ImageLoader imageUrl={qrCodeSvg} />
-        
-        {postMedia && <ImageLoader imageUrl={postMedia} />}
-        
-        <p><a target="_blank" href={`https://ipfs.io/ipfs/${ipfsHash}`}>IPFS Link</a></p>
-
+    <div className="p-4 space-y-2 border rounded shadow-md">
+      <p className="text-xl font-bold">Post Num: {postNumber.toString()} </p>
+      <ImageLoader imageUrl={qrCodeSvg} />
+      
+      {postMedia && <ImageLoader imageUrl={postMedia} />}
+      
+      <p><a className="text-blue-500" target="_blank" rel="noopener noreferrer" href={`https://ipfs.io/ipfs/${ipfsHash}`}>IPFS Link</a></p>
     </div>
   )
 }

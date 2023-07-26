@@ -31,22 +31,24 @@ const DisplayUsersPosts = ({address}) => {
     
   return (
     <>
-        {!isErr ? <div className='flex'>
-            {usersPosts && (
-                usersPosts.map((post, i) =>{
-                    return (
-                        <PostCard key={i} ipfsHash={post.ipfsHash} qrCodeSvg={post.qrCodeSvg} postNumber={post.postNumber} />
-                    )
-                })
-            )}
-        </div> :
-        (
-            <div className='text-center'>
-                <h2>NO USER FOUND</h2>
-            </div>
-        )}
-        
-    </>
+  {!isErr ? (
+    <div className='flex flex-col items-center'>
+      <h2 className='mb-4 text-4xl'>{address}</h2>
+
+      <div className='flex flex-wrap justify-center'>
+        {usersPosts &&
+          usersPosts.map((post, i) => {
+            return <PostCard key={i} ipfsHash={post.ipfsHash} qrCodeSvg={post.qrCodeSvg} postNumber={post.postNumber} />;
+          })}
+      </div>
+    </div>
+  ) : (
+    <div className='text-center'>
+      <h2 className='text-4xl'>NO USER FOUND</h2>
+    </div>
+  )}
+</>
+
   )
 }
 
