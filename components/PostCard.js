@@ -31,7 +31,7 @@ const PostCard = ({postNumber, qrCodeSvg, ipfsHash}) => {
   },[])
 
   return (
-    <div className="p-4 space-y-2 border rounded shadow-md">
+    <div className="p-4 space-y-2 border rounded shadow-md hover:shadow-2xl">
       <p className="text-xl font-bold">Post Num: {postNumber.toString()} </p>
       <ImageLoader imageUrl={qrCodeSvg} />
       
