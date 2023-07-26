@@ -2,9 +2,10 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div className='text-center'>
-        <h2>About</h2>
-        <p>Deep fakes. leaked footage. news telling us one thing, while social media tells us something different.
+    <div className='py-8 text-center text-white bg-blue-500'>
+      <h2 className='mb-4 text-4xl font-bold'>About</h2>
+      <p className='text-lg'>
+        Deep fakes. leaked footage. news telling us one thing, while social media tells us something different.
             These problems can affect anyone, even Joe Rogan was immitated with this technology to have his voice promote a product.
             With these rampad problems, one needs to verify their posts, in an immutable, censorship resistant way.
 

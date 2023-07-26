@@ -4,7 +4,7 @@ import { Web3Context } from "../context/Web3Context"
 import PostCard from './PostCard';
 
 
-const YourPosts = () => {
+const YourPosts = ({maxPosts }) => {
     const {currentAccount, getAllUsersPost} = useContext(Web3Context)
     const [currentPosts, setCurrentPosts] = useState()
      
@@ -12,8 +12,11 @@ const YourPosts = () => {
 
     const fetchPost = async () =>{
         try{
-            const data = await getAllUsersPost(currentAccount)
+            let data = await getAllUsersPost(currentAccount)
             console.log(data)
+            if(maxPosts && data.length > maxPosts){
+                data = data.slice(0, maxPosts)
+            }
 
             setCurrentPosts(data)
 

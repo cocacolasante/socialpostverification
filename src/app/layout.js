@@ -1,6 +1,7 @@
 import { Web3Provider } from '../../context/Web3Context'
 import './globals.css'
 import Navbar from '../../components/Navbar'
+import Footer from '../../components/Footer'
 
 
 export const metadata = {
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         <Web3Provider >
           <Navbar />
           {children}
+          <Footer />
         </Web3Provider>
       </body>
     </html>

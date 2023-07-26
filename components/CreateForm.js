@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client"
 import React, { useState, useContext, useEffect } from 'react';
 import QRCode from 'qrcode';
@@ -133,29 +134,39 @@ const CreateForm = () => {
 
   return (
 
-    <div className='text-center'>
-    <div>
-        <h1>Upload Media For Verification</h1>
-    </div>
-        <div>
-            <form onSubmit={uploadToIpfs} >
-                <input onChange={e=>setPostName(e.target.value)} placeholder='Post name' />
-                <br />
-                <input onChange={e=>setPostToUpload(e.target.files[0])} type='file' name='postfile' ></input>
-                <br/>
-                <button className='border border-red-600' type='submit' >Upload Media</button>
-            </form>
-        </div>
-        <div className='pl-10 text-center'>
-            
-        {qrCode && (<>
-
-            <Image  width={500} height={500} src={qrCode} alt="qr code" />
-            <p>Please right click on QRCode and click Save Image As to download</p>
-        </>
+<div className='py-8 text-center text-white bg-blue-500'>
+      <div>
+        <h1 className='mb-4 text-4xl font-bold'>Upload Media For Verification</h1>
+      </div>
+      <div className='flex justify-center'>
+        <form onSubmit={uploadToIpfs} className='flex flex-col space-y-4'>
+          <input
+            onChange={(e) => setPostName(e.target.value)}
+            placeholder='Post name'
+            className='w-64 px-4 py-2 border border-gray-300 focus:outline-none focus:ring focus:border-blue-300'
+          />
+          <input
+            onChange={(e) => setPostToUpload(e.target.files[0])}
+            type='file'
+            name='postfile'
+            className='w-64 px-4 py-2 border border-gray-300 focus:outline-none focus:ring focus:border-blue-300'
+          />
+          <button
+            type='submit'
+            className='w-64 px-4 py-2 font-bold text-white bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:ring focus:border-red-300'
+          >
+            Upload Media
+          </button>
+        </form>
+      </div>
+      <div className='pl-10 text-center'>
+        {qrCode && (
+          <>
+            <Image width={500} height={500} src={qrCode} alt='qr code' />
+            <p className='text-lg font-bold'>Please right-click on QRCode and click "Save Image As" to download</p>
+          </>
         )}
-        </div>
-        
+      </div>
     </div>
   )
 }
