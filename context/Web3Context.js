@@ -19,6 +19,7 @@ export const Web3Provider = ({children}) =>{
     const [currentAccount, setCurrentAccount] = useState()
     const [currentFee, setCurrentFee] = useState(1)
     const [currentProfile, setCurrentProfile] = useState(null)
+    const [viewedProfile, setViewedProfile] = useState(null)
 
     const createPost = async (ipfshash, qrsvg) =>{
         const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -177,11 +178,35 @@ export const Web3Provider = ({children}) =>{
 
         try {
             const profile = await ProfileContract.profiles(currentAccount)
-            console.log(profile)
             if(profile.username === ""){
                 setCurrentProfile(null)
             }else {
                 setCurrentProfile(profile)
+
+            }
+            
+
+        }catch(err){
+            console.log(err)
+
+        }
+
+    }
+    const fetchUsersProfile = async (account) =>{
+        if(!currentAccount) return setCurrentProfile(null);
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const ProfileContract = fetchProfileContract(provider)
+
+
+        try {
+            const profile = await ProfileContract.profiles(account)
+            console.log(profile)
+            if(profile.profileAddress === ZEROADDRESS){
+                setViewedProfile(null)
+            }else {
+                setViewedProfile(profile)
+                console.log(profile)
 
             }
             
@@ -207,7 +232,9 @@ export const Web3Provider = ({children}) =>{
             getAllUsersPost,
             createProfileAccount,
             currentProfile,
-            fetchCurrentProfile
+            fetchCurrentProfile,
+            fetchUsersProfile,
+            viewedProfile
 
 
         })} >

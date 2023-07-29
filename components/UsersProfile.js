@@ -1,7 +1,10 @@
-import React from 'react'
+"use client"
+import { useContext, useEffect } from 'react'
 import Image from 'next/image'
 
+
 const UsersProfile = ({profile}) => {
+    
   return (
     <div className='p-8'>
         <h2>Username: {profile.username}</h2>
