@@ -163,7 +163,7 @@ const CreateForm = () => {
       <div className='pl-10 text-center'>
         {qrCode && (
           <>
-            <Image width={500} height={500} src={qrCode} alt='qr code' />
+            <Image width={250} height={250} src={qrCode} alt='qr code' />
             <p className='text-lg font-bold'>Please right-click on QRCode and click "Save Image As" to download</p>
           </>
         )}
