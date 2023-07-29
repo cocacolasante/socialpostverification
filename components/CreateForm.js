@@ -99,7 +99,7 @@ const CreateForm = () => {
             // smart contract call
             try{
                 // adding the qr code directly in the smart contract for storage and retreival 
-                const _qrCodeSvg = createQRCode(newRes.data.IpfsHash)
+                const _qrCodeSvg = await createQRCode(newRes.data.IpfsHash)
                 await createPost(newRes.data.IpfsHash, _qrCodeSvg)
                 
                 
@@ -113,6 +113,7 @@ const CreateForm = () => {
         }
     }
 
+    // copy this function to use for profile creation to link to users profile
     const createQRCode = async (ipfsLink) =>{
         const newUrl = `https://ipfs.io/ipfs/${ipfsLink}`
         
