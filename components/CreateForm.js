@@ -140,7 +140,7 @@ const CreateForm = () => {
         <h1 className='mb-4 text-4xl font-bold'>Upload Media For Verification</h1>
       </div>
       <div className='flex justify-center'>
-        <form onSubmit={uploadToIpfs} className='flex flex-col space-y-4'>
+        <form onSubmit={uploadToIpfs} className='flex flex-col space-y-4 text-black'>
           <input
             onChange={(e) => setPostName(e.target.value)}
             placeholder='Post name'

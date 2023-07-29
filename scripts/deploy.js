@@ -12,6 +12,12 @@ async function main() {
   await VerificationContract.deployed()
 
   console.log(`Verfication delpoyed to ${VerificationContract.address}`)
+
+  const profileContractFactory = await hre.ethers.getContractFactory("Profile")
+  const ProfileContract = await profileContractFactory.deploy()
+  await ProfileContract.deployed()
+
+  console.log(`Profile contract deployed to ${ProfileContract.address}`)
   
 }
 

@@ -13,7 +13,7 @@ const YourPosts = ({maxPosts }) => {
     const fetchPost = async () =>{
         try{
             let data = await getAllUsersPost(currentAccount)
-            console.log(data)
+            
             if(maxPosts && data.length > maxPosts){
                 data = data.slice(0, maxPosts)
             }

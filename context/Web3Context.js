@@ -1,7 +1,7 @@
 "use client";
 import React, {useState, useEffect, useContext} from "react";
 import { ethers } from "ethers";
-import {VERIFICATIONADDRESS, VerificationAbi} from "./constants"
+import {VERIFICATIONADDRESS, VerificationAbi, PROFILEADDRESS, ProfileAbi, ZEROADDRESS} from "./constants"
 import verificationAbi from "../artifacts/contracts/Verification.sol/Verification.json"
 
 // fetch smart contract
@@ -9,11 +9,16 @@ const fetchVerificationContract = (signerOrProvider) =>{
     return new ethers.Contract(VERIFICATIONADDRESS, verificationAbi.abi, signerOrProvider)
 }
 
+const fetchProfileContract = (signerOrProvider) =>{
+    return new ethers.Contract(PROFILEADDRESS, ProfileAbi, signerOrProvider)
+}
+
 export const Web3Context = React.createContext()
 
 export const Web3Provider = ({children}) =>{
     const [currentAccount, setCurrentAccount] = useState()
     const [currentFee, setCurrentFee] = useState(1)
+    const [currentProfile, setCurrentProfile] = useState(null)
 
     const createPost = async (ipfshash, qrsvg) =>{
         const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -64,12 +69,13 @@ export const Web3Provider = ({children}) =>{
     }
 
     const getAllUsersPost = async (address) =>{
+        if(!currentAccount) return;
         
         try{
             const provider = new ethers.providers.Web3Provider(window.ethereum)
 
             const verFicationContrct = fetchVerificationContract(provider)
-            console.log(verFicationContrct)
+            
             
             const data = await verFicationContrct.getAllUsersPost(address)
 
@@ -137,8 +143,59 @@ export const Web3Provider = ({children}) =>{
     useEffect(()=>{
         checkIfWalletIsConnected()
         getFee()
+        
     }, [])
 
+    // functions for profile contract
+    const createProfileAccount = async (username, _qrCode) =>{
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+        const ProfileContract = fetchProfileContract(signer)
+
+        try{
+            let tx = await ProfileContract.createProfile(username, _qrCode)
+            let res = await tx.wait()
+            if(res.status == 1){
+                console.log("Success")
+                fetchCurrentProfile()
+            }else{
+                console.log("Failure")
+            }
+
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+
+    const fetchCurrentProfile = async () =>{
+        if(!currentAccount) return setCurrentProfile(null);
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const ProfileContract = fetchProfileContract(provider)
+
+
+        try {
+            const profile = await ProfileContract.profiles(currentAccount)
+            console.log(profile)
+            if(profile.username === ""){
+                setCurrentProfile(null)
+            }else {
+                setCurrentProfile(profile)
+
+            }
+            
+
+        }catch(err){
+            console.log(err)
+
+        }
+
+    }
+
+    useEffect(()=>{
+        fetchCurrentProfile()
+    },[currentAccount])
 
     return (
         <Web3Context.Provider value={({
@@ -147,7 +204,10 @@ export const Web3Provider = ({children}) =>{
             createPost,
             currentFee,
             getSpecificPost,
-            getAllUsersPost
+            getAllUsersPost,
+            createProfileAccount,
+            currentProfile,
+            fetchCurrentProfile
 
 
         })} >
