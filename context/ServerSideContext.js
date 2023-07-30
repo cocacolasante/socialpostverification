@@ -22,8 +22,14 @@ export const getUsersProfileServer = async (accountNumber) =>{
 
     try {
         const profile = await ProfileContract.profiles(accountNumber)
+        console.log(profile)
+        const formattedData = {
+            profileAddress: profile[0],
+            username: profile[1],
+            profileQrCode: profile[2]
+        }
 
-        return profile
+        return formattedData
 
     }catch(err){
         console.log(err)
@@ -36,8 +42,14 @@ export const getUsersPostsServer = async (accountNumber) =>{
     const VerificationContract = new ethers.Contract(VERIFICATIONADDRESS, VerificationAbi, provider)
     try {
         const posts = await VerificationContract.getAllUsersPost(accountNumber)
-        
-        return posts
+        const formattedPosts = posts.map((post) =>{
+            return {
+                postNumber: post[0].toString(),
+                ipfsHash: post[1],
+                qrCodeSvg: post[2]
+            }
+        })
+        return formattedPosts
 
     }catch(err){
         console.log(err)

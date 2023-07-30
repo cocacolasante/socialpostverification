@@ -48,7 +48,7 @@ const DisplayUsersPosts = ({ profile, posts }) => {
       setIsErr(false)
       setIsLoading(false)
     }
-  },profile)
+  },[profile])
 
   return (
     <>
@@ -62,8 +62,8 @@ const DisplayUsersPosts = ({ profile, posts }) => {
           
           {profile && (
             <div className='float-left'>
-              <h2>User: {profile[1]}</h2>
-              <Image src={profile[2]} alt='profile qr code' height={200} width={200} />
+              <h2>User: {profile.username}</h2>
+              <Image src={profile.profileQrCode} alt='profile qr code' height={200} width={200} />
             </div>
           )}
           <div className='flex flex-col items-center'>
@@ -73,9 +73,9 @@ const DisplayUsersPosts = ({ profile, posts }) => {
                 return (
                   <PostCard
                     key={i}
-                    ipfsHash={post[1]}
-                    qrCodeSvg={post[2]}
-                    postNumber={post[0]}
+                    ipfsHash={post.ipfsHash}
+                    qrCodeSvg={post.qrCodeSvg}
+                    postNumber={post.postNumber}
                   />
                 );
               })}
