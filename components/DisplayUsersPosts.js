@@ -3,9 +3,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Web3Context } from '../context/Web3Context';
 import PostCard from './PostCard';
 import Image from 'next/image';
+// import { useParams } from 'next/navigation'
 
 
 const DisplayUsersPosts = ({ address }) => {
+  // const params = useParams()
+  // console.log(params)
+  
   const [usersPosts, setUsersPosts] = useState();
   const [isErr, setIsErr] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

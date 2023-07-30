@@ -91,7 +91,7 @@ const CreateForm = () => {
             }
             // response
             const newRes = await axios(config)
-            console.log(newRes)
+            
             
             if(newRes.status !=200) return 
 
