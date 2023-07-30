@@ -2,11 +2,11 @@
 import React, {useState, useEffect, useContext} from "react";
 import { ethers } from "ethers";
 import {VERIFICATIONADDRESS, VerificationAbi, PROFILEADDRESS, ProfileAbi, ZEROADDRESS} from "./constants"
-import verificationAbi from "../artifacts/contracts/Verification.sol/Verification.json"
+
 
 // fetch smart contract
 const fetchVerificationContract = (signerOrProvider) =>{
-    return new ethers.Contract(VERIFICATIONADDRESS, verificationAbi.abi, signerOrProvider)
+    return new ethers.Contract(VERIFICATIONADDRESS, VerificationAbi, signerOrProvider)
 }
 
 const fetchProfileContract = (signerOrProvider) =>{

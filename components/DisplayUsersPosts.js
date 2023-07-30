@@ -37,7 +37,7 @@ const DisplayUsersPosts = ({ address }) => {
   useEffect(() => {
     fetchPageData();
     fetchUsersProfile(address);
-  }, []);
+  }, [address]);
 
   return (
     <>
