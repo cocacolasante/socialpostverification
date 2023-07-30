@@ -6,19 +6,20 @@ import Image from 'next/image';
 // import { useParams } from 'next/navigation'
 
 
-const DisplayUsersPosts = ({ address }) => {
+const DisplayUsersPosts = ({ profile, posts }) => {
   // const params = useParams()
   // console.log(params)
   
-  const [usersPosts, setUsersPosts] = useState();
+  const [usersPosts, setUsersPosts] = useState(posts);
   const [isErr, setIsErr] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const { getAllUsersPost, viewedProfile, fetchUsersProfile } = useContext(Web3Context);
 
   const fetchPageData = async () => {
+    
     try {
-      const data = await getAllUsersPost(address);
+      const data = await getAllUsersPost(profile.profileAddress);
       if (data == undefined) {
         setIsErr(true);
         setIsLoading(false);
@@ -34,10 +35,20 @@ const DisplayUsersPosts = ({ address }) => {
     }
   };
 
-  useEffect(() => {
-    fetchPageData();
-    fetchUsersProfile(address);
-  }, [address]);
+  // useEffect(() => {
+  //   fetchPageData();
+    
+  // }, []);
+
+  useEffect(()=>{
+    if(profile == null){
+      setIsErr(true)
+      setIsLoading(false)
+    }else{
+      setIsErr(false)
+      setIsLoading(false)
+    }
+  },profile)
 
   return (
     <>
@@ -47,21 +58,24 @@ const DisplayUsersPosts = ({ address }) => {
         </div>
       ) : !isErr ? (
         <div className='pt-6 pl-6'>
-          {viewedProfile && (
+        
+          
+          {profile && (
             <div className='float-left'>
-              <h2>User: {viewedProfile.username}</h2>
-              <Image src={viewedProfile.profileQRCode} alt='profile qr code' height={200} width={200} />
+              <h2>User: {profile[1]}</h2>
+              <Image src={profile[2]} alt='profile qr code' height={200} width={200} />
             </div>
           )}
           <div className='flex flex-col items-center'>
             <div className='flex flex-wrap justify-center space-x-2'>
-              {usersPosts.map((post, i) => {
+              {posts.map((post, i) => {
+                
                 return (
                   <PostCard
                     key={i}
-                    ipfsHash={post.ipfsHash}
-                    qrCodeSvg={post.qrCodeSvg}
-                    postNumber={post.postNumber}
+                    ipfsHash={post[1]}
+                    qrCodeSvg={post[2]}
+                    postNumber={post[0]}
                   />
                 );
               })}

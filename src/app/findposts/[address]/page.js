@@ -1,16 +1,19 @@
 import React from 'react'
 import DisplayUsersPosts from '../../../../components/DisplayUsersPosts'
+import { getUsersProfileServer, getUsersPostsServer } from '../../../../context/ServerSideContext'
 
-async function getStaticProps(){
-  
-}
+
 
 const page = async ({params}) => {
   const address = params.address
   
+  const profile = await getUsersProfileServer(address)
+  const posts = await getUsersPostsServer(address)
+
+
   return (
     <div>
-      <DisplayUsersPosts address={address} />   
+      <DisplayUsersPosts profile={profile} posts={posts} />   
     </div>
   )
 }
