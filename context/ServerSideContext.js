@@ -22,7 +22,7 @@ export const getUsersProfileServer = async (accountNumber) =>{
 
     try {
         const profile = await ProfileContract.profiles(accountNumber)
-        console.log(profile)
+        
         const formattedData = {
             profileAddress: profile[0],
             username: profile[1],

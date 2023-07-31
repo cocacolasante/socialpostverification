@@ -201,12 +201,12 @@ export const Web3Provider = ({children}) =>{
 
         try {
             const profile = await ProfileContract.profiles(account)
-            console.log(profile)
+            
             if(profile.profileAddress === ZEROADDRESS){
                 setViewedProfile(null)
             }else {
                 setViewedProfile(profile)
-                console.log(profile)
+                
 
             }
             
