@@ -13,6 +13,6 @@ export const ProfileAbi = profile.abi
 export const ZEROADDRESS = ethers.utils.getAddress("0x0000000000000000000000000000000000000000")
 
 
-export const websiteUrl = `http://localhost:3000/findposts/`
+export const websiteUrl = `https://socialpostverification.vercel.app/findposts/`
 
 export const testNetwork = "polygon Mumbai"
