@@ -2,7 +2,6 @@
 "use client"
 import React, { useState, useContext, useEffect } from 'react';
 import QRCode from 'qrcode';
-import { saveAs } from 'file-saver';
 import axios from 'axios'
 const FormData = require('form-data')
 import { Web3Context } from "../context/Web3Context"
@@ -125,12 +124,7 @@ const CreateForm = () => {
         
     }
 
-    const handleDownloadClick = () =>{
-        if(!qrCode) return
 
-        const blob = new Blob([qrCode], { type: 'image/svg+xml' });
-        saveAs(blob, "qrcode.svg")
-    }
 
 
   return (

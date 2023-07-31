@@ -1,10 +1,9 @@
 import { ethers } from "ethers";
-import { Network, Alchemy } from 'alchemy-sdk';
 
 import {VERIFICATIONADDRESS, VerificationAbi, PROFILEADDRESS, ProfileAbi, ZEROADDRESS} from "./constants"
 
-const alchemyApiKey = "eUzgwKtq2_Gjx9cjQxyWiAM19ptYfj0P"
-const mumbaiRpcUrl = "https://polygon-mumbai.g.alchemy.com/v2/eUzgwKtq2_Gjx9cjQxyWiAM19ptYfj0P"
+const alchemyApiKey = process.env.NEXT_PUBLIC_MUMBAI_API
+const mumbaiRpcUrl = process.env.NEXT_PUBLIC_MUMBAI_URL
 
 
 
