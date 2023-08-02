@@ -3,42 +3,37 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Web3Context } from '../context/Web3Context';
 import PostCard from './PostCard';
 import Image from 'next/image';
-// import { useParams } from 'next/navigation'
+
 
 
 const DisplayUsersPosts = ({ profile, posts }) => {
-  // const params = useParams()
-  // console.log(params)
   
   const [usersPosts, setUsersPosts] = useState(posts);
   const [isErr, setIsErr] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { getAllUsersPost, viewedProfile, fetchUsersProfile } = useContext(Web3Context);
+  const { getAllUsersPost } = useContext(Web3Context);
 
-  const fetchPageData = async () => {
+  // const fetchPageData = async () => {
     
-    try {
-      const data = await getAllUsersPost(profile.profileAddress);
-      if (data == undefined) {
-        setIsErr(true);
-        setIsLoading(false);
-        return;
-      }
-      setUsersPosts(data);
-      setIsErr(false);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-      setIsErr(true);
-      setIsLoading(false);
-    }
-  };
+  //   try {
+  //     const data = await getAllUsersPost(profile.profileAddress);
+  //     if (data == undefined) {
+  //       setIsErr(true);
+  //       setIsLoading(false);
+  //       return;
+  //     }
+  //     setUsersPosts(data);
+  //     setIsErr(false);
+  //     setIsLoading(false);
+  //   } catch (err) {
+  //     console.log(err);
+  //     setIsErr(true);
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  // useEffect(() => {
-  //   fetchPageData();
-    
-  // }, []);
+
 
   useEffect(()=>{
     if(profile == null){

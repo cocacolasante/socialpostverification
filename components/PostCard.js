@@ -1,7 +1,5 @@
 "use client"
-import Image from "next/image"
 import {useState, useEffect} from "react"
-import nextSvg from "../public/next.svg"
 import ImageLoader from "./ImageLoader"
 
 

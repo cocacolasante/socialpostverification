@@ -1,13 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
-import React, { useState, useContext, useEffect } from 'react';
-import { Web3Context } from "../context/Web3Context"
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { websiteUrl } from '../context/constants';
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState()
-    const {getAllUsersPost} = useContext(Web3Context)
 
 
 

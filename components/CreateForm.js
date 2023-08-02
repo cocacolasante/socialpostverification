@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import QRCode from 'qrcode';
 import axios from 'axios'
 const FormData = require('form-data')

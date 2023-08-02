@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { websiteUrl } from '../context/constants';
 import QRCode from 'qrcode';
 import { Web3Context } from "../context/Web3Context"
