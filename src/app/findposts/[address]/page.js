@@ -2,29 +2,31 @@ import React from 'react'
 import DisplayUsersPosts from '../../../../components/DisplayUsersPosts'
 import { getUsersProfileServer, getUsersPostsServer } from '../../../../context/ServerSideContext'
 
-// async function getServerSideProps(context) {
-//   const {params} = context
-  
-//   const address = params.address
-//   const profile = await getUsersProfileServer(address)
-//   const posts = await getUsersPostsServer(address)
+async function getServerSideProps(props) {
+  // const {params} = query
+  const address = props.address
+  console.log(address)
+  const profile = await getUsersProfileServer(address)
 
-//   return{
-//     profile,
-//     posts
-//   }
-// }
+  const posts = await getUsersPostsServer(address)
+
+  return{
+    profile,
+    posts
+  }
+}
 
 const Page = async ({params}) => {
-  const address = params.address
-  
-  const profile = await getUsersProfileServer(address)
-  const posts = await getUsersPostsServer(address)
+
+  const props = await getServerSideProps(params)
+  console.log(props)
+  // const profile = await getUsersProfileServer(address)
+  // const posts = await getUsersPostsServer(address)
 
 
   return (
     <div>
-      <DisplayUsersPosts profile={profile} posts={posts} />   
+      <DisplayUsersPosts profile={props.profile} posts={props.posts} />   
     </div>
   )
 }

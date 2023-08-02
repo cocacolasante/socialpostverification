@@ -3,26 +3,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Web3Context } from "../context/Web3Context"
 import Link from 'next/link';
-import YourPosts from './YourPosts';
+import { websiteUrl } from '../context/constants';
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState()
     const {getAllUsersPost} = useContext(Web3Context)
 
 
-    const handleSearch = async (e) =>{
-      e.preventDefault()
-      if(!searchQuery) return;
-      try{
-        const usersPosts = await getAllUsersPost(searchQuery)
-        console.log(usersPosts)
 
-
-
-      }catch(err){
-        console.log(err)
-      }
-    }
 
   return (
 <div className="py-8 text-center text-white bg-blue-500">
