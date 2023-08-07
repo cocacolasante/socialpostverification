@@ -2,6 +2,7 @@ const {ethers} = require("hardhat")
 const {expect} = require("chai")
 
 const SAMPLEIPFS = "SAMPLEHASH"
+const SAMPLEQR = "SAMPLEQRCODE"
 
 describe("Verification contract", () =>{
     let VerificationContract, deployer, user1, user2, user3, post1, currentFee
@@ -38,8 +39,9 @@ describe("Verification contract", () =>{
     })
     describe("Make Post Function", async () =>{
         beforeEach(async () =>{
-            await VerificationContract.connect(user1).makePost(SAMPLEIPFS, {value: currentFee})
-            await VerificationContract.connect(user1).makePost(SAMPLEIPFS, {value: currentFee})
+            currentFee = await VerificationContract.getFee()
+            await VerificationContract.connect(user1).makePost(SAMPLEIPFS, SAMPLEQR, {value: currentFee})
+            await VerificationContract.connect(user1).makePost(SAMPLEIPFS, SAMPLEQR, {value: currentFee })
             post1 = await VerificationContract.getSpecificPost(user1.address, 1)
             // console.log(post1)
         })
@@ -55,7 +57,7 @@ describe("Verification contract", () =>{
         })
         it("checks the admin received the fee", async () =>{
             const initialBalance = await ethers.provider.getBalance(deployer.address)
-            await VerificationContract.connect(user1).makePost(SAMPLEIPFS, {value: currentFee})
+            await VerificationContract.connect(user1).makePost(SAMPLEIPFS, SAMPLEQR, {value: currentFee})
             expect(await ethers.provider.getBalance(deployer.address)).to.equal(BigInt(initialBalance) + BigInt(1))
 
         })
