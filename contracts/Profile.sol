@@ -28,4 +28,5 @@ contract Profile {
         return profiles[msg.sender] = ProfileStruct(msg.sender, _username, _qrCode);
 
     }
+    
 }
