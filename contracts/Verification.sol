@@ -31,6 +31,12 @@ contract Verification{
         admin = msg.sender;
     }
 
+   // setter 
+    function setFee(uint newFee) public onlyAdmin{
+        require(fee >0, "Verification: Fee cannot be zero");
+        fee = newFee;
+    }
+    
     // complete make post function
     function makePost(string memory _ipfsHash, string memory _qrcodeSvg) public payable returns(Post memory){
         require(msg.value >= fee, "Verification: Pay Required Fee");
@@ -47,11 +53,7 @@ contract Verification{
     }
 
 
-    // setter 
-    function setFee(uint newFee) public onlyAdmin{
-        require(fee >0, "Verification: Fee cannot be zero");
-        fee = newFee;
-    }
+ 
 
     // get all users posts
 
